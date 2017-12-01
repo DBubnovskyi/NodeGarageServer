@@ -1,0 +1,29 @@
+$overlay-color-a : rgba(255, 255, 255, 0.6);
+$overlay-color-b : rgba(57, 194, 215, 0.93);
+$overlay-color-c : rgba(163, 198, 68, 0.93);
+$overlay-color-d : rgba(70, 69, 71, 0.96);
+
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+  background-color: rgba(255,255,255,0.1);
+}
+
+.parallax-a {
+  background:    linear-gradient($overlay-color-a, $overlay-color-a), url("../../images/soldering.jpg") no-repeat fixed;
+  background-size: cover;
+}
+
+.bg-b {
+  background:    linear-gradient($overlay-color-b, $overlay-color-b), url("../../images/board-Stock.jpg") no-repeat fixed;
+  background-size: cover;
+}
+
+.bg-c {
+  background:    linear-gradient($overlay-color-c, $overlay-color-c), url("../../images/board-Stock.jpg") no-repeat fixed;
+  background-size: cover;
+}

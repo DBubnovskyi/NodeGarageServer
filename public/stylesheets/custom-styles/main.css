@@ -1,0 +1,21 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
+
+a {
+  color: #00B7FF;
+  background-color: rgba(255, 255, 255, 0.1); }
+
+.parallax-a {
+  background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url("../../images/soldering.jpg") no-repeat fixed;
+  background-size: cover; }
+
+.bg-b {
+  background: linear-gradient(rgba(57, 194, 215, 0.93), rgba(57, 194, 215, 0.93)), url("../../images/board-Stock.jpg") no-repeat fixed;
+  background-size: cover; }
+
+.bg-c {
+  background: linear-gradient(rgba(163, 198, 68, 0.93), rgba(163, 198, 68, 0.93)), url("../../images/board-Stock.jpg") no-repeat fixed;
+  background-size: cover; }
+
+/*# sourceMappingURL=main.css.map */
