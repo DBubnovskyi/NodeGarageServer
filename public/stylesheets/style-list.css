@@ -1,2 +1,3 @@
-@import 'custom-styles/main.css';
 @import 'frameworks/bulma.css';
+@import 'custom-styles/main.css';
+@import 'custom-styles/tennis.css';

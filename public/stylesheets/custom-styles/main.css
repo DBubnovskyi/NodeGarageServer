@@ -1,21 +1,53 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
 
 a {
   color: #00B7FF;
   background-color: rgba(255, 255, 255, 0.1); }
 
-.parallax-a {
+.input {
+  border-radius: 0; }
+
+.input:not(:last-child) {
+  margin-bottom: 10px; }
+
+.button {
+  border-radius: 0; }
+
+.tile.is-parent {
+  padding: 0; }
+
+.notification {
+  border-radius: 0; }
+
+.parallax-soldering {
   background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url("../../images/soldering.jpg") no-repeat fixed;
   background-size: cover; }
 
-.bg-b {
+.bg-board-blue {
   background: linear-gradient(rgba(57, 194, 215, 0.93), rgba(57, 194, 215, 0.93)), url("../../images/board-Stock.jpg") no-repeat fixed;
   background-size: cover; }
 
-.bg-c {
+.bg-board-green {
   background: linear-gradient(rgba(163, 198, 68, 0.93), rgba(163, 198, 68, 0.93)), url("../../images/board-Stock.jpg") no-repeat fixed;
   background-size: cover; }
 
-/*# sourceMappingURL=main.css.map */
+.bg-tennis-dark_red {
+  background: linear-gradient(rgba(142, 36, 77, 0.96), rgba(142, 36, 77, 0.96)), url("../../images/pingpong.jpg") no-repeat fixed;
+  background-size: cover; }
+
+.bg-tennis-red {
+  background: linear-gradient(rgba(178, 39, 70, 0.96), rgba(178, 39, 70, 0.96)), url("../../images/pingpong.jpg") no-repeat fixed;
+  background-size: cover; }
+
+.bg-tennis-dark {
+  background: linear-gradient(rgba(70, 69, 71, 0.96), rgba(70, 69, 71, 0.96)), url("../../images/pingpong.jpg") no-repeat fixed;
+  background-size: cover; }
+
+.bg-tennis-green {
+  background: linear-gradient(rgba(163, 198, 68, 0.93), rgba(163, 198, 68, 0.93)), url("../../images/pingpong.jpg") no-repeat fixed;
+  background-size: cover; }
+
+.bg-tennis-blue {
+  background: linear-gradient(rgba(57, 194, 215, 0.93), rgba(57, 194, 215, 0.93)), url("../../images/pingpong.jpg") no-repeat fixed;
+  background-size: cover; }

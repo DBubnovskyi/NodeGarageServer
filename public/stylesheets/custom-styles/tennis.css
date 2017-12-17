@@ -1,0 +1,10 @@
+.cancel-booking {
+  margin-left: 25px;
+  color: #ff2d6a; }
+
+.columns:not(:last-child) {
+  margin-bottom: 0; }
+
+@media screen and (max-width: 769px) {
+  .inpTime {
+    padding-top: 0; } }

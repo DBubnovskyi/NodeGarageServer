@@ -1,10 +1,18 @@
-$overlay-color-a : rgba(255, 255, 255, 0.6);
-$overlay-color-b : rgba(57, 194, 215, 0.93);
-$overlay-color-c : rgba(163, 198, 68, 0.93);
-$overlay-color-d : rgba(70, 69, 71, 0.96);
+$color-light : rgba(255, 255, 255, 0.6);
+$color-blue : rgba(57, 194, 215, 0.93);
+$color-green : rgba(163, 198, 68, 0.93);
+$color-dark : rgba(70, 69, 71, 0.96);
+$color-red : rgba(178, 39, 70, 0.96);
+$color-dark_red : rgba(142, 36, 77, 0.96);
+
+$light-overlay : linear-gradient($color-light, $color-light);
+$blue-overlay : linear-gradient($color-blue, $color-blue);
+$green-overlay : linear-gradient($color-green, $color-green);
+$dark-overlay : linear-gradient($color-dark, $color-dark);
+$red-overlay : linear-gradient($color-red, $color-red);
+$dark_red-overlay : linear-gradient($color-dark_red, $color-dark_red);
 
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -13,17 +21,69 @@ a {
   background-color: rgba(255,255,255,0.1);
 }
 
-.parallax-a {
-  background:    linear-gradient($overlay-color-a, $overlay-color-a), url("../../images/soldering.jpg") no-repeat fixed;
+.input{
+  border-radius: 0;
+}
+.input:not(:last-child){
+  margin-bottom: 10px;
+}
+
+.button{
+  border-radius: 0;
+}
+
+.tile.is-parent {
+  padding: 0;
+}
+
+.notification{
+  border-radius: 0;
+}
+
+.parallax-soldering {
+  background:    $light-overlay,
+  url("../../images/soldering.jpg") no-repeat fixed;
   background-size: cover;
 }
 
-.bg-b {
-  background:    linear-gradient($overlay-color-b, $overlay-color-b), url("../../images/board-Stock.jpg") no-repeat fixed;
+.bg-board-blue {
+  background:    $blue-overlay,
+  url("../../images/board-Stock.jpg") no-repeat fixed;
   background-size: cover;
 }
 
-.bg-c {
-  background:    linear-gradient($overlay-color-c, $overlay-color-c), url("../../images/board-Stock.jpg") no-repeat fixed;
+.bg-board-green {
+  background:    $green-overlay,
+  url("../../images/board-Stock.jpg") no-repeat fixed;
+  background-size: cover;
+}
+
+.bg-tennis-dark_red {
+  background:    $dark_red-overlay,
+  url("../../images/pingpong.jpg") no-repeat fixed;
+  background-size: cover;
+}
+
+.bg-tennis-red {
+  background:    $red-overlay,
+  url("../../images/pingpong.jpg") no-repeat fixed;
+  background-size: cover;
+}
+
+.bg-tennis-dark {
+  background:    $dark-overlay,
+  url("../../images/pingpong.jpg") no-repeat fixed;
+  background-size: cover;
+}
+
+.bg-tennis-green {
+  background:    $green-overlay,
+  url("../../images/pingpong.jpg") no-repeat fixed;
+  background-size: cover;
+}
+
+.bg-tennis-blue {
+  background:    $blue-overlay,
+  url("../../images/pingpong.jpg") no-repeat fixed;
   background-size: cover;
 }
