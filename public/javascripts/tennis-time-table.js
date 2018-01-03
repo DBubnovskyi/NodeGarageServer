@@ -1,26 +1,111 @@
 'use strict';
-/*import { Element, ElementCreator } from "element-processor";*/
-/*
 
-let timeTable = document.getElementById('tennis-time-table');
-let timeClock = document.getElementById('tennis-current-time');
+get_data();
 
-timeClock.querySelector('.title').innerHTML = new Date().toLocaleTimeString();
-window.setInterval(function s(){
-    timeClock.querySelector('.title').innerHTML = new Date().toLocaleTimeString();
-}, 1000);
+let time_form = document.getElementById('time-form');
+let time_table = document.getElementById('time-table');
 
+time_form.querySelector('.time-submit').addEventListener('click', post_data);
 
-let hour = new ElementCreator({parent : timeTable, container : [
-    new Element({tag: 'h1', class: 'title is-hidden-mobile'}),
-    new Element({tag: 'h1', class: 'title', text : new Date().toISOString().substr(0,10)}),
-    new Element({tag: 'h2', class: 'subtitle', text : 'Schedule'})
-]}).create();
+function get_data(){
+    let xhr = new XMLHttpRequest();
+    xhr.open('get', '/tennis/api', true);
+    xhr.send();
+    xhr.onreadystatechange = function(){
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            time_table.querySelector('.content').innerHTML = '';
+            let jsonObj = JSON.parse(xhr.responseText);
+            console.log(jsonObj);
+            for (let i = 0; i < jsonObj.length; i++) {
+                new ElementCreator({
+                    parent: time_table.querySelector('.content'),
+                    container: new Element({
+                        class: 'hero is-small is-dark bg-tennis-dark', tag: 'section',
+                        childElement: new Element({
+                            class: 'hero-body',
+                            childElement: new Element({
+                                class: 'container',
+                                childElement: [
+                                    new Element({class: 'subtitle is-4', tag : 'p',text : jsonObj[i].startTime + ' - ' + jsonObj[i].endTime}),
+                                    new Element({class: 'title is-4', tag: 'p', text: jsonObj[i].title}),
+                                    new Element({class: 'subtitle is-6', tag: 'p', text: jsonObj[i].comment}),
+                                ]
+                            })
+                        }),
+                    })
+                }).create();
+            }
+        }
+    }
+}
 
-let i;
-for(i = 8; i < 21; i++)
-    createHour(i);
-createHourEnd(i);
+function post_data() {
+
+    time_form.querySelector('.error').innerHTML = '';
+
+    let xhr = new XMLHttpRequest();
+
+    let obj = ({
+        title : document.getElementById('time-form').querySelector('.time-title').value,
+        startTime :document.getElementById('time-form').querySelector('.time-start').value,
+        endTime : document.getElementById('time-form').querySelector('.time-end').value,
+        comment : document.getElementById('time-form').querySelector('.time-comment').value
+    });
+    let body = 'json=' + JSON.stringify(obj);
+    xhr.open('post', '/tennis/api?' + body, true);xhr.send();
+    //xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+    let s = 0;
+    xhr.onreadystatechange = function()
+    {
+        if (xhr.readyState === 4 && xhr.status === 200)
+        {
+            time_table.querySelector('.content').innerHTML = '';
+            let jsonObj = JSON.parse(xhr.responseText);
+            console.log(jsonObj);
+            for(let i = 0; i < jsonObj.length; i++){
+                new ElementCreator({
+                    parent : time_table.querySelector('.content'),
+                    container : new Element({
+                        class : 'hero is-small is-dark bg-tennis-dark', tag : 'section',
+                        childElement : new Element({
+                            class: 'hero-body',
+                            childElement : new Element({
+                                class: 'container',
+                                childElement : [
+                                    new Element({class: 'subtitle is-4', tag : 'p',text : jsonObj[i].startTime + ' - ' + jsonObj[i].endTime}),
+                                    new Element({class: 'title is-4', tag : 'p',text : jsonObj[i].title}),
+                                    new Element({class: 'subtitle is-6', tag : 'p',text : jsonObj[i].comment}),
+                                ]
+                            })
+                        }),
+                    })
+                }).create();
+            }
+        }else if(xhr.readyState === 4 && xhr.status === 412){
+            time_form.querySelector('.error').innerHTML = '';
+            let jsonObj = JSON.parse(xhr.responseText);
+            console.log(jsonObj);
+            for(let i = 0; i < jsonObj.length; i++){
+                new ElementCreator({
+                    parent : time_form.querySelector('.error'),
+                    container : new Element({
+                        class : 'notification is-warning',
+                        childElement : [
+                            new Element({tag:'button',class:'delete'}),
+                            new Element({tag:'strong',text:jsonObj[i].error_title}),
+                            new Element({tag:'p',text:jsonObj[i].error_text})
+                        ],
+                    })
+                }).create();
+            }
+        }
+    };
+
+}
+
+function fill_buffer() {
+
+}
 
 function createHourEnd(endHour) {
     new ElementCreator({
@@ -36,44 +121,19 @@ function createHourEnd(endHour) {
             ]
         })
     }).create();
-
 }
 
-function createHour(startHour) {
-    let lines = new Element({
-        class: 'space is-hidden-mobile',
-        childElement: [
-            new Element({class: 'line'}),
-            new Element({class: 'empty'}),
-            new Element({class: 'line'}),
-            new Element({class: 'empty'})
-        ]
-    });
+/*let timeTable = document.getElementById('tennis-time-table');
+ let timeClock = document.getElementById('tennis-current-time');
 
-    let time = new Element({class: 'time', childElement: [
-        new Element({class: 'time-text', text: startHour+':00'}),
-        new Element({class: 'time-text', text: startHour+':30'})
-        ]
-    });
+ timeClock.querySelector('.title').innerHTML = new Date().toLocaleTimeString();
+ window.setInterval(function s(){
+ timeClock.querySelector('.title').innerHTML = new Date().toLocaleTimeString();
+ }, 1000);
 
-    new ElementCreator({
-        parent : timeTable,
-        container :
-            new Element({class: 'hour', childElement: [
-                time,
-                lines,
-                new Element({
-                    class: 'timetable',
-                    childElement: [
-                        new Element({class: 'line'}),
-                        new Element({class: 'line'}),
-                        new Element({class: 'line'}),
-                        new Element({class: 'line'})
-                    ]
-                }),
-                lines,
-                time
-                ]
-            })
-    }).create();
-}*/
+
+ let hour = new ElementCreator({parent : timeTable, container : [
+ new Element({tag: 'h1', class: 'title is-hidden-mobile'}),
+ new Element({tag: 'h1', class: 'title', text : new Date().toISOString().substr(0,10)}),
+ new Element({tag: 'h2', class: 'subtitle', text : 'Schedule'})
+ ]}).create();*/

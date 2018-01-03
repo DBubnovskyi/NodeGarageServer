@@ -11,3 +11,15 @@
     padding-top: 0;
   }
 }
+
+.error{
+  font-size: 14px;
+  & > .notification{
+    margin-bottom: 3px;
+    padding: 10px;
+    & .delete{
+      margin: 3px;
+      border-radius: 0;
+    }
+  }
+}

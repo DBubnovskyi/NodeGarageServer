@@ -71,6 +71,7 @@ a {
 }
 
 .bg-tennis-dark {
+  border-bottom: 1px solid #363636;
   background:    $dark-overlay,
   url("../../images/pingpong.jpg") no-repeat fixed;
   background-size: cover;

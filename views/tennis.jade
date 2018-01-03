@@ -1,24 +1,43 @@
 extends layout
 
 block content
-    section.hero.is-hidden-mobile.is-dark.bg-tennis-dark_red
-        div.hero-body
+    section.hero.is-hidden-mobile.is-dark.bg-tennis-green
+        //div.hero-body
+        div
             div.container
                 h1.title Vinnytsia EPAM GARAGE
                 h2.subtitle Embedded developers local server
-    section.hero.is-dark.bg-tennis-blue
+    section.hero.bg-tennis-blue#time-form
         div.hero-body
             div.container
-                h1.subtitle.is-3 Book room
-                input(type="text" placeholder="Title").input
+                h1(style='margin:0;').subtitle.is-3 Book room
+                div.error
+                    //div.notification.is-warning
+                    //    button.delete
+                    //    strong Hello World
+                    //    p Hello World
+                br
+                div.is-hidden-mobile
+                    p(style='float:left;') Title
+                        p(style='float:left; color:red;') *
+                input(type="text" placeholder="Name - room").input.time-title
                 div.columns
                     div.column.is-half
-                        input(type="time" value="09:00").input
+                        div.is-hidden-mobile
+                            p(style='float:left;').is-hidden-mobile start time
+                                p(style='float:left; color:red;') *
+                        input(type="time" value="09:00").input.time-start
                     div.column.is-half.inpTime
-                        input(type="time" value="23:59").input
-                textarea(placeholder="Comment").input
-                a.button.reserve reserve
-    include timeline
+                        div.is-hidden-mobile
+                            p(style='float:left;').is-hidden-mobile end time
+                                p(style='float:left; color:red;') *
+                        input(type="time" value="23:59").input.time-end
+                p(style='float:left;').is-hidden-mobile Additional info
+                textarea(placeholder="Comment").input.time-comment
+                a.button.reserve.time-submit Reserve room
+    section.hero.is-dark#time-table
+        div.content
+    //include timeline
 
     script(src='./javascripts/element-processor.js')
     script(src='./javascripts/tennis-time-table.js')
