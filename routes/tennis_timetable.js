@@ -5,6 +5,11 @@ let router = express.Router();
 
 let file_path = '../data/tennis-booking.json';
 
+let data = {
+    time_list : [],
+    error_list :[]
+};
+
 class Reserved_time{
     constructor(parameters) {
         this.id = parameters.id;
@@ -62,7 +67,9 @@ router.post('/api', function(req, res) {
             error_list.push({error_title: 'Time is not valid', error_text: 'The server got an empty "end time" value'});
         }
     }else if(obj.startTime > obj.endTime){
-        error_list.push({error_title: 'Time is not valid', error_text: 'the "end time" must be later than the "start time"'});
+        error_list.push({error_title: 'Time is not valid', error_text: 'The "end time" must be later than the "start time"'});
+    }else if( (new Date(`01/01/01 ${obj.endTime}`) - new Date(`01/01/01 ${obj.startTime}`)) /3600000 > 1){
+        error_list.push({error_title: 'Time is not valid / test', error_text: 'The time that you trying to book is longer than one hour'});
     }else{
         if(time_list.length > 0) {
             for (let i = 0; i < time_list.length; i++) {
