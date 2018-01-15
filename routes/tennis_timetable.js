@@ -154,6 +154,7 @@ router.get('/api/book_time', function(req, res) {   //  hostName/tennis/api/book
                     reserved_time.comment = comment;
                     reserved_time.id = guid(4);
                     time_list.push(reserved_time);
+                    break;
                 } else {
                     error_list.push({
                         error_title: 'Time is overlap',
@@ -184,6 +185,25 @@ router.get('/clear-data', function(req, res) {
     data_sender.error_list = [];
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify(data_sender));
+});
+
+router.get('/api/cancel-current', function(req, res) {
+    let _minutes = new Date().toLocaleString("en-US",{minute: 'numeric'});
+    let minutes = _minutes < 10 ? '0' +  _minutes : _minutes;
+    let hour = new Date().toLocaleString("en-US",{hour: 'numeric',hour12: false });
+    let current_time = hour + ':' + minutes;
+
+    let buf = [];
+    for(let i = 0; i < time_list.length; i++){
+        if(time_list[i].startTime <= current_time && time_list[i].endTime >= current_time){
+        }else{
+            buf.push(time_list[i]);
+        }
+    }
+    time_list = buf;
+    data_sender.time_list = time_list;
+    data_sender.error_list = [];
+    res.send(data_sender);
 });
 
 router.post('/api', function(req, res) {   //  hostName/tennis/api?json={}
