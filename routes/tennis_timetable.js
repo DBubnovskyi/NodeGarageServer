@@ -75,6 +75,8 @@ router.get('/api/one_hour', function(req, res) {    //  hostName/tennis/api/one_
         let time_diff = (new Date(`01/01/01 ${time_list[i].startTime}`)- new Date(`01/01/01 ${current_time}`)) /3600000;
         if( time_diff < 1 && time_diff > 0){
             data_sender.time_list.push(time_list[i]);
+        }else if(time_list[i].startTime <= current_time && time_list[i].endTime >= current_time){
+            data_sender.time_list.push(time_list[i]);
         }
     }
     res.setHeader('Content-Type', 'application/json');
@@ -84,6 +86,8 @@ router.get('/api/one_hour', function(req, res) {    //  hostName/tennis/api/one_
 router.get('/api/book_time', function(req, res) {   //  hostName/tennis/api/book_time?time=5
     error_list = [];
     let time = req.query.time;
+    let title = req.query.title;
+    let comment = req.query.comment;
     let reserved_time = new Reserved_time({});
 
     //let time = 5;
@@ -140,13 +144,14 @@ router.get('/api/book_time', function(req, res) {   //  hostName/tennis/api/book
         }
     }
     console.log(time_coincidence);
-    if(!time_coincidence){
+    if(time_coincidence === false){
         if(time_list.length > 0) {
             for (let i = 0; i < time_list.length; i++) {
                 if (time_list[i].endTime < startTime || time_list[i].startTime > endTime) {
-                    reserved_time.title = 'Booked from touch panel';
+                    reserved_time.title = title;
                     reserved_time.startTime = startTime;
                     reserved_time.endTime = endTime;
+                    reserved_time.comment = comment;
                     reserved_time.id = guid(4);
                     time_list.push(reserved_time);
                 } else {
@@ -159,9 +164,10 @@ router.get('/api/book_time', function(req, res) {   //  hostName/tennis/api/book
             }
         }else{
             reserved_time.id = guid(4);
-            reserved_time.title = 'Booked from touch panel';
+            reserved_time.title = title;
             reserved_time.startTime = startTime;
             reserved_time.endTime = endTime;
+            reserved_time.comment = comment;
             time_list.push(reserved_time);
         }
     }
