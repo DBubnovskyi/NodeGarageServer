@@ -196,6 +196,12 @@ router.get('/api/cancel-current', function(req, res) {
     let buf = [];
     for(let i = 0; i < time_list.length; i++){
         if(time_list[i].startTime <= current_time && time_list[i].endTime >= current_time){
+			hour = minutes < 0 ? parseInt(hour) - 1 : hour;
+			minutes = parseInt(minutes) - 1;
+			minutes = minutes < 0 ? 60 - Math.abs(minutes) : minutes;
+			current_time = hour + ':' + minutes;
+			time_list[i].endTime = current_time;
+			buf.push(time_list[i])
         }else{
             buf.push(time_list[i]);
         }
