@@ -27,9 +27,9 @@ router.get('/api', function(req, res) {   //  hostName/tennis/api
     res.send({time_list:data.time_list.get_all(),error_list:[]});
 });
 
-router.get('/api/one_hour', function(req, res) {    //  hostName/tennis/api/one_hour
+router.get('/api/one_hour', function(req, res) {
     res.setHeader('Content-Type', 'application/json');
-    res.send({time_list:data.time_list.get_hour(),error_list:[]});
+    res.send({time_list:data.time_list.get_hour(), error_list:[]});
 });
 
 router.get('/api/extend_time', function(req, res) {   //  hostName/tennis/api/extend_time?time=5
@@ -99,6 +99,7 @@ router.get('/api/book_time', function(req, res) {   //  hostName/tennis/api/book
         data.reserved_time.comment = comment;
     }
 
+    res.setHeader('Content-Type', 'application/json');
     if(error_list.length === 0){
         data.reserved_time.add_to_list();
 
@@ -108,9 +109,6 @@ router.get('/api/book_time', function(req, res) {   //  hostName/tennis/api/book
         res.status(412);
         res.send({time_list:data.time_list.get_all(), error_list:error_list});
     }
-
-    res.setHeader('Content-Type', 'application/json');
-    res.send({time_list:data.time_list.get_all(),error_list:error_list});
 });
 
 router.get('/clear_all_data', function(req, res) {

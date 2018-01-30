@@ -35,7 +35,7 @@ class Time_list {
     get_hour(){
         let buffer = [];
 
-        let current_time = `${time.current.hour()}:${time.current.minutes()}`;
+        let current_time = `${time.hour()}:${time.minutes()}`;
 
         for(let i = 0; i < this.dataArray.length; i++){
             let time_diff = (new Date(`01/01/01 ${this.dataArray[i].startTime}`)- new Date(`01/01/01 ${current_time}`)) /3600000;
