@@ -29,7 +29,7 @@ router.get('/api', function(req, res) {   //  hostName/tennis/api
 
 router.get('/api/one_hour', function(req, res) {    //  hostName/tennis/api/one_hour
     res.setHeader('Content-Type', 'application/json');
-    res.send({time_list:data.time_list,error_list:[]});
+    res.send({time_list:data.time_list.get_hour(),error_list:[]});
 });
 
 router.get('/api/extend_time', function(req, res) {   //  hostName/tennis/api/extend_time?time=5
@@ -37,7 +37,7 @@ router.get('/api/extend_time', function(req, res) {   //  hostName/tennis/api/ex
     let time_query = req.query.time;
 
     let startTime = time.current();
-    if(data.time_list.dataArray.length > 0) {
+    if(data.time_list.dataArray.length > 0 && !!time_query) {
         for (let i = 0; i < data.time_list.dataArray.length; i++) {
             if(data.time_list.dataArray[i].startTime <= startTime && data.time_list.dataArray[i].endTime >= startTime) {
                 startTime = data.time_list.dataArray[i].startTime;
@@ -46,13 +46,13 @@ router.get('/api/extend_time', function(req, res) {   //  hostName/tennis/api/ex
                 let overlap = false;
                 let id = data.time_list.dataArray[i].id;
                 for (let s = 0; s < data.time_list.dataArray.length; s++) {
-                    if (data.time_list[s].endTime < startTime || data.time_list[s].startTime > endTime ) {
-                    } else if(data.time_list[s].id !== id){
+                    if (data.time_list.dataArray[s].endTime < startTime || data.time_list.dataArray[s].startTime > endTime ) {
+                    } else if(data.time_list.dataArray[s].id !== id){
                         overlap = true;
                         error_list.push({
                             error_title: 'Time is overlap',
                             error_text: 'An attempt to extend the time is unable, time ' + startTime + ' - ' + endTime +
-                            ' It\'s overlap with already booked time ' + data.time_list[s].startTime + ' - ' + data.time_list[s].endTime
+                            ' It\'s overlap with already booked time ' + data.time_list.dataArray[s].startTime + ' - ' + data.time_list.dataArray[s].endTime
                         });
                     }
                 }
@@ -63,6 +63,11 @@ router.get('/api/extend_time', function(req, res) {   //  hostName/tennis/api/ex
                 }
             }
         }
+    } else {
+        error_list.push({
+            error_title: 'Time extend value is empty',
+            error_text: 'An attempt to extend the time is unable, time value is empty '
+        });
     }
 
     res.setHeader('Content-Type', 'application/json');

@@ -1,4 +1,4 @@
-class Current{
+class Timer{
     hour(){
         return `${new Date().toLocaleString("en-US",{hour:'numeric', hour12: false })}`;
     };
@@ -59,7 +59,7 @@ function leading_zero(num) {
     return buf;
 }
 
-let time = new Current();
+let time = new Timer();
 module.exports = {time};
 /*
     era: 'long', //"narrow", "short", "long"

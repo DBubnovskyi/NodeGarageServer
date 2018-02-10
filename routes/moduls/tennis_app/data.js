@@ -1,7 +1,7 @@
 const jsonfile = require('jsonfile');
 const id_generator = require('../id_generator');
-const t = require('./time');
-const time = t.time;
+const time = require('./time').time;
+
 
 let file_path = '../data/'; //tennis-booking.json';
 
@@ -14,9 +14,9 @@ class Reserved_time{
         this.comment = parameters.comment;
     }
     add_to_list(){
-        let _reserved_time = new Reserved_time(this);
-        _reserved_time.id = id_generator.id(6);
-        time_list.dataArray.push(_reserved_time);
+        this.id = id_generator.id(6);
+        time_list.dataArray.push(new Reserved_time(this));
+        time_list.sort();
     }
 }
 
@@ -25,9 +25,8 @@ class Time_list {
         this.dataArray = parameters.dataArray;
     }
     add_to_list(){
-        let _reserved_time = new Reserved_time(reserved_time);
-        _reserved_time.id = id_generator.id(6);
-        this.dataArray.push(_reserved_time);
+        reserved_time.id = id_generator.id(6);
+        this.dataArray.push(new Reserved_time(reserved_time));
     }
     get_all(){
         return this.dataArray;
@@ -57,6 +56,11 @@ class Time_list {
         jsonfile.writeFile(file_path + file_name + file_format, this.dataArray, {spaces: 2}, function (err) {
             if (err) throw err;
             else console.log('file ' + file_name + ' saved')
+        });
+    }
+    sort(){
+        this.dataArray.sort(function(obj1, obj2) {
+            return obj1.startTime > obj2.startTime;
         });
     }
 }
